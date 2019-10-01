@@ -50,9 +50,11 @@
       'logfile': '/var/log/zabbix/zabbix_proxy.log',
       'logfilesize': '0',
       'socketdir': '/var/run/zabbix',
+      'startpreprocessors': '3',
       'externalscripts': '/usr/lib/zabbix/externalscripts',
       'fpinglocation': '/usr/bin/fping',
       'fping6location': '/usr/bin/fping6',
+      'statsallowedip': '127.0.0.1',
       'includes': ['/etc/zabbix/zabbix_proxy.d/']
     },
     'mysql': {
@@ -146,6 +148,21 @@
       'config': '/etc/zabbix/zabbix_agentd.conf',
       'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
       'logfile': '/var/log/zabbix/zabbix_agentd.log'
+    },
+  },
+
+  'Windows':{
+    'user': 'Administrator',
+    'group': 'Administrators',
+    'agent': {
+      'version': '3.0.28.2400',
+      'pkgs': ['zabbix-agent'],
+      'service': 'Zabbix Agent',
+      'config': 'C:\\Program Files\\Zabbix Agent\\zabbix_agentd.conf',
+      'logfile': 'C:\\Program Files\\Zabbix Agent\\zabbix_agentd.log',
+      'logfilesize': '5',
+      'pidfile': '',
+      'includes': [],
     },
   },
 
