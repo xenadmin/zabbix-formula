@@ -43,15 +43,6 @@ zabbix-proxy-piddir:
     - dirmode: 750
     - require:
       - pkg: zabbix-proxy
-      
-zabbix-proxy-sqlitedir:
-  file.directory:
-    - name: {{ salt['file.dirname'](zabbix.proxy.dbname) }}
-    - user: {{ zabbix.user }}
-    - group: {{ zabbix.group }}
-    - dirmode: 750
-    - require:
-      - pkg: zabbix-proxy
 
 # basic check does 'dbname' looks like a file path
 {% if zabbix.proxy.dbname.startswith('/') -%}      
