@@ -1,20 +1,25 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
-{% from "zabbix/macros.jinja" import files_switch with context -%}
+{% from "zabbix/libtofs.jinja" import files_switch with context -%}
 {% set config_file = salt.file.basename(zabbix.frontend.config) -%}
 {% set config_file_dir = salt.file.dirname(zabbix.frontend.config) -%}
 
 
 include:
   - zabbix.frontend
+  {%- if grains.os_family == 'Debian' %}
+  - zabbix.debconf
+  {%- endif %}
 
 
 {{ zabbix.frontend.config }}:
   file.managed:
-    - source: {{ files_switch('zabbix',
-                              [zabbix.frontend.config,
+    - source: {{ files_switch([zabbix.frontend.config,
                                zabbix.frontend.config ~ '.jinja',
                                '/etc/zabbix/web/' ~ config_file,
-                               '/etc/zabbix/web/' ~ config_file ~ '.jinja']) }}
+                               '/etc/zabbix/web/' ~ config_file ~ '.jinja'],
+                              lookup='zabbix-frontend-config'
+                 )
+              }}
     - template: jinja
     - require:
       - pkg: zabbix-frontend-php
@@ -39,4 +44,6 @@ zabbix-frontend_debconf:
         'zabbix-frontend-php/restart-webserver': {'type': 'boolean', 'value': False}
     - prereq:
       - pkg: zabbix-frontend-php
+    - require:
+      - sls: zabbix.debconf
 {%- endif %}

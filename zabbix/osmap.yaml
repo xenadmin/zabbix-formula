@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os'] based logic.
+# You just need to add the key:values for an `os` that differ
+# from `defaults.yaml` + `osarch.yaml` + `os_family.yaml`.
+# Only add an `os` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osmap: {}
+---
+# os_family: Debian
+Ubuntu: {}
+Raspbian: {}
+
+# os_family: RedHat
+Fedora:
+  server:
+    service: zabbix-server-mysql
+    srv_user: 'zabbixsrv'
+    srv_group: 'zabbixsrv'
+    pidfile: /var/run/zabbixsrv/zabbix_server.pid
+    socketdir: /var/run/zabbixsrv
+    logfile: /var/log/zabbixsrv/zabbix_server.log
+    alertscriptspath: /usr/share/zabbix/alertscripts
+    externalscripts: /usr/share/zabbix/externalscripts
+CentOS: {}
+Amazon: {}
+
+# os_family: Suse
+SUSE: {}
+openSUSE: {}
+
+# os_family: Gentoo
+Funtoo: {}
+
+# os_family: Arch
+Manjaro: {}
+
+# os_family: Solaris
+SmartOS: {}
