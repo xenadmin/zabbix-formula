@@ -26,9 +26,8 @@
     - name: apt-transport-https
 {{ id_prefix }}_repo:
   pkgrepo.managed:
-    - name: deb https://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
+    - name: deb [signed-by=/etc/apt/keyrings/zabbix-official-repo.key] https://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
     - file: /etc/apt/sources.list.d/zabbix.list
-    - key_url: https://repo.zabbix.com/zabbix-official-repo.key
     - clean_file: True
 
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
