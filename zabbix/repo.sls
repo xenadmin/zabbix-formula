@@ -27,6 +27,7 @@
     - name: deb [ arch={{ salt['grains.get']('osarch')|lower }} {{ zabbix.repo_signedby }} ]
         https://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
     - file: /etc/apt/sources.list.d/zabbix.list
+    - key_url: https://repo.zabbix.com/zabbix-official-repo.key
     - clean_file: True
     - aptkey: {{ zabbix.repo_aptkey }}
 
